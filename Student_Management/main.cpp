@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #define NAME_SIZE 10
 #define ADDRESS_SIZE 120
 #define PHONE_SIZE 12
@@ -50,6 +51,8 @@ int main()
 	
 	int iStudnetCount =0; // 학생들이 추가되거나 삭제 될때 변하는 숫자
 	int iStdNumber=1; //어디에 써야하나?
+
+	char searchStd[NAME_SIZE] = {};
 	
 
 	while (true)
@@ -63,6 +66,8 @@ int main()
 		cout << "3. SEARCH student" << endl;
 		cout << "4. OUTPUT studnet" << endl;
 		cout << "5. Exit" << endl;
+
+		
 
 		int iMenu;
 		// 예외 처리 필수 사항
@@ -132,8 +137,51 @@ int main()
 
 			break;
 		case MENU_DELETE: //삭제 메뉴
+			system("cls");
+			cin.ignore(1024, '\n');
+			cout << "==============================학생 삭제============================== " << endl;
+			cout << "탐색할 이름을 입력하세요 :";
+			cin.getline(searchStd, NAME_SIZE);
+			for (int i = 0; i < iStudnetCount; ++i)
+			{
+				if (strcmp(tStudnetArr[i].strName, searchStd) == 0)// 같을경우 strcmp 가 0이된다.
+				{
+					for (int j = i; j < iStudnetCount; ++j)
+					{
+						tStudnetArr[i] = tStudnetArr[i + 1];
+					}
+					--iStudnetCount;
+
+					cout << " 학생을 삭제 하였습니다. " << endl;
+				}
+			}
+
+
 			break;
 		case MENU_SEARCH: //검색 메뉴
+			system("cls");
+			cin.ignore(1024, '\n');
+			cout << "==============================학생 검색============================== " << endl;
+			cout << "탐색할 이름을 입력하세요 :";
+			cin.getline(searchStd, NAME_SIZE);
+
+			for (int i = 0; i < iStudnetCount; ++i)
+			{
+				if (strcmp(tStudnetArr[i].strName, searchStd) ==0)// 같을경우 strcmp 가 0이된다.
+				{
+					cout << "학생 이름 :" << tStudnetArr[i].strName << endl;
+					cout << "주소 :" << tStudnetArr[i].strAddress << endl;
+					cout << "전화번호 :" << tStudnetArr[i].strPhoneNumber << endl;
+					cout << "국어 :" << tStudnetArr[i].iKorea << endl;
+					cout << "영어 :" << tStudnetArr[i].iEnglish << endl;
+					cout << "수학 :" << tStudnetArr[i].iMath << endl;
+					cout << "총점 :" << tStudnetArr[i].iTotal << endl;
+					cout << "평균 :" << tStudnetArr[i].fAvg << endl;
+				}
+			}
+			
+			
+
 			break;
 		case MENU_OUTPUT: //출력 메뉴
 			// 학생을 찾아서 출력한다. 
